@@ -13,7 +13,7 @@ module Fog
         # * options<~Hash>
         #
         def put_object(bucket_name, object_name, data, options = {})
-          if data.is_a? ::File
+          if data.respond_to? :read
             @oss_protocol.put_object(bucket_name, object_name, options)do |sw|
               while line = data.read(16*1024)
                 sw.write(line)
